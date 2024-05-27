@@ -1,4 +1,4 @@
-import { Auth } from "./auth.js";
+import { Auth, logout } from "./auth.js";
 import { Router } from "./router.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,4 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    contentDiv.addEventListener('click', (event: any) => {
+        if (event.target && event.target.id === 'logout') {
+            logout();
+        }
+    });
+
 });

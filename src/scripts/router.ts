@@ -1,3 +1,5 @@
+import { checkAuthentication, logout } from "./auth.js";
+
 export function Router() {
     // Initial page load or when navigating back/forward
     window.addEventListener('hashchange', () => {
@@ -9,13 +11,14 @@ export function Router() {
 
     // Helper function to get current route from URL
     function getCurrentRoute() {
-        console.log(window.location.hash);
         const hash = window.location.hash.slice(1)
-        const isAuthenticated = localStorage.getItem('authToken');
+        const isAuthenticated = checkAuthentication();
+        console.log('isAuth', isAuthenticated);
         let routeTo = '';
         if (isAuthenticated) {
             routeTo = 'home'
         } else {
+            logout();
             routeTo = hash;
         }
         return routeTo;
