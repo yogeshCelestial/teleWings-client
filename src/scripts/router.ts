@@ -18,7 +18,7 @@ export function Router() {
         if (isAuthenticated) {
             routeTo = 'home'
         } else {
-            logout();
+            localStorage.clear();
             routeTo = hash;
         }
         return routeTo;

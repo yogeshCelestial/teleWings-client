@@ -30,19 +30,66 @@ body {
     text-decoration: underline;
   }
   
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: 0 auto;
+  input {
+    margin-top: 20px;
+    line-height: 2;
+    border: none;
+    border-radius: 5px;
   }
-  
-  input, button {
-    margin-bottom: 10px;
+
+  button {
+    margin-top: 25px;
+    background-color: #E3651D;
+    border-radius: 5px;
+    line-height: 2.5;
+    border: none;
+    border-radius: 0 0 5px 5px;
+
+  }
+  button:hover {
+    background-color: #FF5F00;
+    cursor: pointer;
   }
   
   #profile-info {
     margin: 20px auto;
     width: 300px;
   }
-  
+  #contentDiv {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+  #authContainer {
+    background-color: #1F2544;
+    height: 100vh;
+  }
+  #authContainer div {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    padding-top: 50px;
+    align-items: center;
+    color: #ffffff;
+  }
+
+  #authContainer div form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  #authContainer div p {
+    width: 100%;
+    text-align: center;
+    background-color: #E3651D;
+    border-radius: 5px 5px 0 0;
+    line-height: 2.5;
+  }
+  #logo {
+    margin-bottom: 10px;
+  }
