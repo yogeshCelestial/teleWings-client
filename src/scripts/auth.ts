@@ -45,5 +45,5 @@ export const checkAuthentication = () => {
 export const logout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
-    window.location.href = '/#login';
+    window.location.href = '/login';
 }

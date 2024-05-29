@@ -24,4 +24,9 @@ const httpHelper = (reqObj: ObjReq, successHandler: (a: any) => void, failureHan
     })
 }
 
+export const searchUsers = async (searchVal: string) => {
+    const resp = await axios.get(`http://localhost:8080/users/?searchVal=${searchVal}`);
+    return await resp.data;
+}
+
 export default httpHelper;

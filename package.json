@@ -2,7 +2,7 @@
   "name": "client",
   "version": "1.0.0",
   "description": "Frontend of the TeleWings Application",
-  "main": "/dist/app.js",
+  "main": "/src/index.html",
   "scripts": {
     "start": "lite-server"
   },

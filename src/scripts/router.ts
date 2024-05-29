@@ -1,40 +1,57 @@
-import { checkAuthentication, logout } from "./auth.js";
+import { checkAuthentication } from "./auth.js";
+const urlPageTitle = 'TeleWings'
 
-export function Router() {
-    // Initial page load or when navigating back/forward
-    window.addEventListener('hashchange', () => {
-        navigateTo(getCurrentRoute());
-    });
+document.addEventListener("click", (e: any) => {
+	const { target } = e;
+	if (!target.matches("a")) {
+		return;
+	}
+	e.preventDefault();
+	urlRoute(e);
+});
 
-    // Initial page load
-    navigateTo(getCurrentRoute());
+const urlRoutes: any = {
+	404: {
+		template: "/src/screens/404.html",
+		title: "404 | " + urlPageTitle,
+	},
+	"/": {
+		template: "/src/screens/home.html",
+		title: "Home | " + urlPageTitle,
+	},
+	"/login": {
+		template: "/src/screens/login.html",
+		title: "Log In | " + urlPageTitle,
+	},
+	"/signup": {
+		template: "/src/screens/signup.html",
+		title: "Create Account | " + urlPageTitle,
+	},
+};
 
-    // Helper function to get current route from URL
-    function getCurrentRoute() {
-        const hash = window.location.hash.slice(1)
-        const isAuthenticated = checkAuthentication();
-        console.log('isAuth', isAuthenticated);
-        let routeTo = '';
-        if (isAuthenticated) {
-            routeTo = 'home'
-        } else {
-            localStorage.clear();
-            routeTo = hash;
+export const urlRoute = (event: any) => {
+	event = event || window.event; // get window.event if event argument not provided
+	event.preventDefault();
+	window.history.pushState({}, "", event.target.href);
+	urlLocationHandler();
+};
+
+export const urlLocationHandler = async () => {
+	let location = window.location.pathname; // get the url path
+    const isAuthenticated = checkAuthentication();
+    if (isAuthenticated) {
+       location = '/';
+    } else {
+        localStorage.clear();
+        if (location !== '/login' && location !== '/signup') {
+            location = '/login'
         }
-        return routeTo;
     }
-}
+    const route: any = urlRoutes[location] || urlRoutes["404"];
+    const html = await fetch(route.template).then((response) => response.text());
+	(document.getElementById("content")!).innerHTML = html;
+	document.title = route.title;
+};
 
-// Router logic
-export function navigateTo(path: string) {
-    const contentDiv = document.getElementById('content')! as HTMLDivElement;
-    fetch(`/src/screens/${path}.html`)
-        .then(response => response.text())
-        .then(html => {
-            contentDiv.innerHTML = html;
-            history.pushState({ page: path }, 'TeleWings', `#${path}`);
-        })
-        .catch(error => {
-            console.error('Error loading page:', error)
-        });
-}
+// add an event listener to the window that watches for url changes
+window.onpopstate = urlLocationHandler;
