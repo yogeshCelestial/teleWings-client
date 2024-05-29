@@ -1,5 +1,5 @@
 import { Auth, logout } from "./auth.js";
-import { searchUsers } from "./httpHelper.js";
+import httpHelper, { searchUsers } from "./httpHelper.js";
 import { urlLocationHandler } from "./router.js";
 
 type User = {
@@ -40,11 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target && event.target.id === 'searchButton') {
             const searchVal = (contentDiv.querySelector('#searchInput')! as HTMLInputElement).value;
             const users = await searchUsers(searchVal);
-            displaySerachResults(users, contentDiv);
+            // displaySerachResults(users, contentDiv);
+            renderContacts(users, contentDiv);
         }
         if (event.target && event.target.id === 'chats') {
-            // openChatRoom();
-            openChatList(contentDiv); 
+            const reqObj = {
+                method: 'GET',
+                data: null,
+                authToken: localStorage.getItem('authToken'),
+                url: `chats/?senderId=${localStorage.getItem('userId')}`
+
+            }
+            httpHelper(reqObj, () => console.log('Resolved'), () => console.log('Failed'));
         }
         if (event.target && event.target.id === 'search') {
             const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
@@ -52,34 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="text" id="searchInput" name="search" />
             <button id="searchButton" type="button">Search</button>
             <button id="logout">logout</button>
-        </div>`
+            </div>`
         }
     });
 });
 
-const displaySerachResults = (users: User[], contentDiv: HTMLDivElement) => {
-    let html;
-    if (users.length) {
-        html = `
-                <h2>Search Results: </h2>
-                <ul type="none">
-                ${users.map((user: User) => `<a href=/user/${user.userid} data-elem=${JSON.stringify(user)} id="userElem" type="button">${user.name}</a>`)}
-                </ul>`
-    } else {
-        html = `
-                <h2>Search Results: </h2>
-                <h3>No Matching Results</h3>`
-    }
-    contentDiv.getElementsByTagName('main')[0].innerHTML = html;
-}
 
-export const openChatList = (contentDiv: HTMLDivElement) => {
-    const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
-    mainDiv.innerHTML = `<div id="chatsContainer">
-            <ul type="none">
-                <li>One</li>
-                <li>Two</li>
-                <li>Three</li>
-            </ul>
-        </div>`;
+
+
+const renderContacts = (userList: User[], elem: HTMLDivElement) => {
+    const ul = document.createElement('ul');
+    userList.forEach((element) => {
+        const li = document.createElement('li');
+        li.textContent = element.name + element.userid;
+        ul.appendChild(li);
+    });
+    elem.innerHTML = String(ul);
 }

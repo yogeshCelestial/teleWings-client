@@ -11,7 +11,8 @@ export class Auth {
         const reqObj: ObjReq = {
             data: data,
             method: 'POST',
-            url: 'signIn'
+            url: 'signIn',
+            authToken: '',
         }
         httpHelper(reqObj, loginSuccessHandler, loginFailureHandler)
     }
@@ -24,7 +25,8 @@ export class Auth {
         const reqObj: ObjReq = {
             data: data,
             method: 'POST',
-            url: 'signUp'
+            url: 'signUp',
+            authToken: '',
         }
         httpHelper(reqObj, signUpSuccessHandler, signUpFailedSuccessHandler)
     }

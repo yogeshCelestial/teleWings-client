@@ -1,4 +1,3 @@
-import { openChatList } from "./app.js";
 import { checkAuthentication } from "./auth.js";
 const urlPageTitle = 'TeleWings'
 
@@ -52,7 +51,7 @@ export const urlLocationHandler = async () => {
     const html = await fetch(route.template).then((response) => response.text());
 	(document.getElementById("content")!).innerHTML = html;
     if (location === '/' || location === '/home') {
-        openChatList(document.getElementById('content')! as HTMLDivElement);
+        // call chat rooms render function here
     }
 	document.title = route.title;
 };

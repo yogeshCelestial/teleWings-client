@@ -1,9 +1,10 @@
 declare var axios: any;
 
 export type ObjReq = {
-    data: string;
+    data: string | null;
     method: string;
     url: string
+    authToken: string | null,
 }
 
 const httpHelper = (reqObj: ObjReq, successHandler: (a: any) => void, failureHandler: (b: any) => void) => {
@@ -11,10 +12,12 @@ const httpHelper = (reqObj: ObjReq, successHandler: (a: any) => void, failureHan
         method: reqObj.method,
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': reqObj.authToken,
         },
-        data: reqObj.data,
+        data: reqObj.method === 'POST' ? reqObj.data : null,
         baseURL: `http://localhost:8080/${reqObj.url}`,
     }).then((resp: any) => {
+        console.log(resp)
         if (resp.status === 200 || resp.status === 201) {
             successHandler(resp.data);
         }
