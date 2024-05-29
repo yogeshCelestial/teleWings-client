@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
             openChatList(contentDiv); 
         }
         if (event.target && event.target.id === 'search') {
-            console.log('search clicked');
             const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
             mainDiv.innerHTML = `<div id="searchContainer" class="mainDiv">
             <input type="text" id="searchInput" name="search" />
@@ -75,7 +74,6 @@ const displaySerachResults = (users: User[], contentDiv: HTMLDivElement) => {
 }
 
 export const openChatList = (contentDiv: HTMLDivElement) => {
-    debugger;
     const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
     mainDiv.innerHTML = `<div id="chatsContainer">
             <ul type="none">

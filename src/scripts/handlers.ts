@@ -3,7 +3,7 @@ const loginSuccessHandler = (response: any) => {
     localStorage.setItem('authToken', response.authToken);
     localStorage.setItem('userId', response.body.userid);
     document.title = 'Chat | TeleWings'
-    history.replaceState({ page: 'HomePage' }, 'TeleWings', '/');
+    window.location.href = '/';
 }
 
 const loginFailureHandler = (response: any) => {
@@ -12,7 +12,7 @@ const loginFailureHandler = (response: any) => {
 
 const signUpSuccessHandler = (resp: any) => {
     document.title = 'Login | TeleWings'
-    history.replaceState({ page: 'Login' }, 'TeleWings', '/login');
+    window.location.href = '/login';
 }
 
 const signUpFailedSuccessHandler = () => {
