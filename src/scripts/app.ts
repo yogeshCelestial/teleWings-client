@@ -43,16 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySerachResults(users, contentDiv);
         }
         if (event.target && event.target.id === 'chats') {
-            console.log('chats clicked');
             // openChatRoom();
-            const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
-            mainDiv.innerHTML = `<div id="chatsContainer">
-            <ul type="none">
-                <li>One</li>
-                <li>Two</li>
-                <li>Three</li>
-            </ul>
-        </div>`
+            openChatList(contentDiv); 
         }
         if (event.target && event.target.id === 'search') {
             console.log('search clicked');
@@ -80,4 +72,16 @@ const displaySerachResults = (users: User[], contentDiv: HTMLDivElement) => {
                 <h3>No Matching Results</h3>`
     }
     contentDiv.getElementsByTagName('main')[0].innerHTML = html;
+}
+
+export const openChatList = (contentDiv: HTMLDivElement) => {
+    debugger;
+    const mainDiv = contentDiv.querySelector('#mainContent')! as HTMLDivElement;
+    mainDiv.innerHTML = `<div id="chatsContainer">
+            <ul type="none">
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        </div>`;
 }

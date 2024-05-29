@@ -7,7 +7,6 @@ export type ObjReq = {
 }
 
 const httpHelper = (reqObj: ObjReq, successHandler: (a: any) => void, failureHandler: (b: any) => void) => {
-    console.log(reqObj);
     axios({
         method: reqObj.method,
         headers: {

@@ -1,3 +1,4 @@
+import { openChatList } from "./app.js";
 import { checkAuthentication } from "./auth.js";
 const urlPageTitle = 'TeleWings'
 
@@ -50,6 +51,9 @@ export const urlLocationHandler = async () => {
     const route: any = urlRoutes[location] || urlRoutes["404"];
     const html = await fetch(route.template).then((response) => response.text());
 	(document.getElementById("content")!).innerHTML = html;
+    if (location === '/' || location === '/home') {
+        openChatList(document.getElementById('content')! as HTMLDivElement);
+    }
 	document.title = route.title;
 };
 

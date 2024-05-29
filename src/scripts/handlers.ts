@@ -11,7 +11,6 @@ const loginFailureHandler = (response: any) => {
 }
 
 const signUpSuccessHandler = (resp: any) => {
-    console.log(resp.message);
     document.title = 'Login | TeleWings'
     history.replaceState({ page: 'Login' }, 'TeleWings', '/login');
 }
